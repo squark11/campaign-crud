@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { CampaignForm } from "./components/CampaignForm";
+import { CampaignList } from "./components/CampaignList";
+import { Balance } from "./components/Balance";
 
 function App() {
   const [campaigns, setCampaigns] = useState([]);
@@ -125,122 +128,24 @@ function App() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Lista kampanii</h1>
-      <p>
-        <strong>Saldo konta:</strong> {balance} zł
-      </p>
+      <Balance balance={balance} />
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-        <input
-          name="name"
-          placeholder="Nazwa kampanii"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="keywords"
-          placeholder="Słowa kluczowe"
-          value={form.keywords}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="bid"
-          placeholder="Kwota za kliknięcie"
-          type="number"
-          min="0.01"
-          value={form.bid}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="fund"
-          placeholder="Budżet kampanii"
-          type="number"
-          min="0.01"
-          value={form.fund}
-          onChange={handleChange}
-          required
-        />
-        <select name="status" value={form.status} onChange={handleChange}>
-          <option value="on">Włączona</option>
-          <option value="off">Wyłączona</option>
-        </select>
-        <select name="town" value={form.town} onChange={handleChange}>
-          <option value="">-- wybierz miasto --</option>
-          <option value="Warszawa">Warszawa</option>
-          <option value="Kraków">Kraków</option>
-          <option value="Wrocław">Wrocław</option>
-        </select>
-        <input
-          name="radius"
-          placeholder="Promień w km"
-          type="number"
-          min="1"
-          value={form.radius}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Dodaj kampanię</button>
-      </form>
+      <CampaignForm
+        form={form}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
 
-      <ul>
-        {campaigns.map((c) => (
-          <li key={c.id}>
-            {editingId === c.id ? (
-              <form onSubmit={handleEditSubmit}>
-                <input
-                  name="name"
-                  value={editForm.name}
-                  onChange={handleEditChange}
-                  required
-                />
-                <input
-                  name="keywords"
-                  value={editForm.keywords}
-                  onChange={handleEditChange}
-                  required
-                />
-                <input
-                  name="bid"
-                  type="number"
-                  value={editForm.bid}
-                  onChange={handleEditChange}
-                  required
-                />
-                <input
-                  name="fund"
-                  type="number"
-                  value={editForm.fund}
-                  onChange={handleEditChange}
-                  required
-                />
-                <button type="submit">Zapisz</button>
-                <button type="button" onClick={cancelEditing}>
-                  Anuluj
-                </button>
-              </form>
-            ) : (
-              <>
-                <strong>{c.name}</strong> – {c.keywords} | Bid: {c.bid} zł |
-                Fundusz: {c.fund} zł
-                <button
-                  onClick={() => startEditing(c)}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  Edytuj
-                </button>
-                <button
-                  onClick={() => handleDelete(c.id, c.fund)}
-                  style={{ marginLeft: "0.5rem" }}
-                >
-                  Usuń
-                </button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+      <CampaignList
+        campaigns={campaigns}
+        editingId={editingId}
+        editForm={editForm}
+        handleEditChange={handleEditChange}
+        startEditing={startEditing}
+        cancelEditing={cancelEditing}
+        handleEditSubmit={handleEditSubmit}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }
