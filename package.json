@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd campaign-crud && npm run build",
-    "dev": "cd campaign-crud && ",
+    "dev": "cd campaign-crud && npm run dev",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d campaign-crud/dist"
   },
