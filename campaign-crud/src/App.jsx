@@ -4,7 +4,7 @@ import { CampaignList } from "./components/CampaignList";
 import { Balance } from "./components/Balance";
 
 function App() {
-  const URL = "https://campaign-crud.onrender.com:10000/api"
+  const URL = "https://campaign-crud.onrender.com/api";
   const [campaigns, setCampaigns] = useState([]);
   const [balance, setBalance] = useState(0);
   const [editingId, setEditingId] = useState(null);
