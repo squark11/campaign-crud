@@ -65,7 +65,7 @@ app.post('/api/campaigns', (req, res) => {
   const id = uuidv4();
 
   client.query('SELECT balance FROM account WHERE id = 1', (err, result) => {
-    const currentBalance = result.rows[0]?.balance || 0;
+    const currentBalance = result.rows[0]?.balance || 1000;
     if (fund > currentBalance) {
       return res.status(400).json({ error: 'Niewystarczające środki' });
     }
