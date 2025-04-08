@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://squark11.github.io/campaign-crud",
+  "homepage": "https://squark11.github.io/campaign-crud/campaign-crud",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
