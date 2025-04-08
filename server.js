@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3')
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = new sqlite3.Database(process.env.DATABASE_URL || './kampanie.db');
+const db = new Database('./kampanie.db');
 
 // Tworzenie tabel
 db.serialize(() => {
@@ -31,11 +31,8 @@ db.serialize(() => {
     )
   `);
 
-  db.get('SELECT * FROM account WHERE id = 1', (err, row) => {
-    if (!row) {
-      db.run('INSERT INTO account (id, balance) VALUES (1, 1000)');
-    }
-  });
+  const rows = db.prepare('SELECT * FROM campaigns').all();
+res.json(rows);
 });
 
 // CRUD kampanii
