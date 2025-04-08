@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://squark11.github.io/campaign-crud/campaign-crud",
+  "homepage": "https://squark11.github.io/campaign-crud",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd campaign-crud && npm run build",
     "dev": "cd campaign-crud && npm run dev",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d campaign-crud"
   },
   "keywords": [],
   "author": "",
