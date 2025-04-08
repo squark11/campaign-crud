@@ -1,6 +1,6 @@
 {
-  "start": "vite",  
-  "build": "vite build",  
+  "start": "vite",
+  "build": "vite build",
   "name": "campaign-crud",
   "version": "1.0.0",
   "description": "",
