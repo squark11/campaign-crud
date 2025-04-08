@@ -4,6 +4,7 @@ import { CampaignList } from "./components/CampaignList";
 import { Balance } from "./components/Balance";
 
 function App() {
+  const URL = "https://campaign-crud.onrender.com:10000/api"
   const [campaigns, setCampaigns] = useState([]);
   const [balance, setBalance] = useState(0);
   const [editingId, setEditingId] = useState(null);
@@ -22,11 +23,11 @@ function App() {
 
   //łączenie z backendem
   useEffect(() => {
-    fetch("http://localhost:5000/api/campaigns")
+    fetch(URL+"/campaigns")
       .then((res) => res.json())
       .then((data) => setCampaigns(data));
 
-    fetch("http://localhost:5000/api/balance")
+    fetch(URL+"/balance")
       .then((res) => res.json())
       .then((data) => setBalance(data.balance));
   }, []);
@@ -49,7 +50,7 @@ function App() {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/api/campaigns", {
+    const res = await fetch(URL+"/campaigns", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -75,7 +76,7 @@ function App() {
   };
 
   const handleDelete = async (id, fund) => {
-    const res = await fetch(`http://localhost:5000/api/campaigns/${id}`, {
+    const res = await fetch(URL+`/campaigns/${id}`, {
       method: "DELETE",
     });
 
@@ -121,7 +122,7 @@ function App() {
       campaign.id === editingId ? editForm : campaign
     );
 
-    await fetch(`http://localhost:5000/api/campaigns/${editingId}`, {
+    await fetch(URL+`/campaigns/${editingId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editForm),
