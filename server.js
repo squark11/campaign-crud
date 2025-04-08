@@ -56,7 +56,7 @@ app.get('/api/campaigns', (req, res) => {
 app.get('/api/balance', (req, res) => {
   client.query('SELECT balance FROM account WHERE id = 1', (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json({ balance: result.rows[0]?.balance || 0 });
+    res.json({ balance: result.rows[0]?.balance || 1000 });
   });
 });
 
