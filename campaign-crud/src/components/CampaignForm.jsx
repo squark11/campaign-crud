@@ -1,58 +1,83 @@
-export const CampaignForm = ({ form, handleChange, handleSubmit }) => {
+import React from "react";
+
+export const CampaignForm = ({
+  isOpen,
+  onClose,
+  form,
+  handleChange,
+  handleSubmit,
+}) => {
+  if (!isOpen) return null;
+
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-      <input
-        name="name"
-        placeholder="Nazwa kampanii"
-        value={form.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="keywords"
-        placeholder="Słowa kluczowe"
-        value={form.keywords}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="bid"
-        placeholder="Kwota za kliknięcie"
-        type="number"
-        min="0.01"
-        value={form.bid}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="fund"
-        placeholder="Budżet kampanii"
-        type="number"
-        min="0.01"
-        value={form.fund}
-        onChange={handleChange}
-        required
-      />
-      <select name="status" value={form.status} onChange={handleChange}>
-        <option value="on">Włączona</option>
-        <option value="off">Wyłączona</option>
-      </select>
-      <select name="town" value={form.town} onChange={handleChange}>
-        <option value="">-- wybierz miasto --</option>
-        <option value="Warszawa">Warszawa</option>
-        <option value="Kraków">Kraków</option>
-        <option value="Wrocław">Wrocław</option>
-      </select>
-      <input
-        name="radius"
-        placeholder="Promień w km"
-        type="number"
-        min="1"
-        value={form.radius}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Dodaj kampanię</button>
-    </form>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h2>Create Campaign</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="name"
+            placeholder="Campaign name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="keywords"
+            placeholder="Keywords"
+            value={form.keywords}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="bid"
+            placeholder="Bid (PLN)"
+            type="number"
+            min="1"
+            value={form.bid}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="fund"
+            placeholder="Budget (PLN)"
+            type="number"
+            min="0"
+            value={form.fund}
+            onChange={handleChange}
+            required
+          />
+          <select
+            name="status"
+            value={form.status}
+            onChange={handleChange}
+            required
+          >
+            <option value="on">Enabled</option>
+            <option value="off">Disabled</option>
+          </select>
+          <select name="town" value={form.town} onChange={handleChange}>
+            <option value="">-- select town --</option>
+            <option value="Warszawa">Warsaw</option>
+            <option value="Kraków">Krakow</option>
+            <option value="Wrocław">Wroclaw</option>
+          </select>
+          <input
+            name="radius"
+            placeholder="Radius (km)"
+            type="number"
+            min="1"
+            value={form.radius}
+            onChange={handleChange}
+            required
+          />
+          <div className="modal-actions">
+            <button type="submit">Add Campaign</button>
+            <button type="button" className="cancel" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };

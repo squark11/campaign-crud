@@ -8,6 +8,7 @@ function App() {
   const [balance, setBalance] = useState(0);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -37,7 +38,6 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Walidacja podstawowa
     if (
       !form.name ||
       !form.keywords ||
@@ -59,7 +59,7 @@ function App() {
 
     if (res.ok) {
       setCampaigns((prev) => [...prev, data]);
-      setBalance((prev) => prev - parseFloat(form.fund)); // aktualizacja salda
+      setBalance((prev) => prev - parseFloat(form.fund));
       setForm({
         name: "",
         keywords: "",
@@ -81,7 +81,7 @@ function App() {
 
     if (res.ok) {
       setCampaigns((prev) => prev.filter((c) => c.id !== id));
-      setBalance((prev) => prev + parseFloat(fund)); // zwróć środki
+      setBalance((prev) => prev + parseFloat(fund));
     } else {
       alert("Błąd usuwania kampanii");
     }
@@ -104,36 +104,51 @@ function App() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(
-      `http://localhost:5000/api/campaigns/${editingId}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editForm),
-      }
+    const oldCampaign = campaigns.find((c) => c.id === editingId);
+    const oldFund = parseFloat(oldCampaign.fund);
+    const newFund = parseFloat(editForm.fund);
+
+    const fundDifference = newFund - oldFund;
+
+    if (fundDifference > 0 && fundDifference > balance) {
+      alert(
+        `Brak wystarczających środków! Brakuje ${fundDifference - balance} zł`
+      );
+      return;
+    }
+
+    const updatedCampaigns = campaigns.map((campaign) =>
+      campaign.id === editingId ? editForm : campaign
     );
 
-    if (res.ok) {
-      const updated = await res.json();
-      setCampaigns((prev) =>
-        prev.map((c) => (c.id === editingId ? updated : c))
-      );
-      setEditingId(null);
-      setEditForm({});
-    } else {
-      alert("Błąd edycji kampanii");
-    }
+    await fetch(`http://localhost:5000/api/campaigns/${editingId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editForm),
+    });
+
+    setCampaigns(updatedCampaigns);
+    setBalance(balance - fundDifference);
+    cancelEditing();
   };
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Lista kampanii</h1>
+      <h1>Campaign List</h1>
       <Balance balance={balance} />
 
+      <button onClick={() => setModalOpen(true)}>Add Campaign</button>
+
       <CampaignForm
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
         form={form}
         handleChange={handleChange}
-        handleSubmit={handleSubmit}
+        handleSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+          setModalOpen(false);
+        }}
       />
 
       <CampaignList

@@ -1,0 +1,25 @@
+button {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #1877f2;
+  color: white;
+
+  &:hover {
+    background-color: #166fe5;
+  }
+}
+
+.btn-danger {
+  background-color: #e53935;
+  color: white;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+}
