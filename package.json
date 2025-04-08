@@ -1,4 +1,6 @@
 {
+  "start": "vite",  
+  "build": "vite build",  
   "name": "campaign-crud",
   "version": "1.0.0",
   "description": "",
@@ -9,7 +11,7 @@
     "build": "cd campaign-crud && npm run build",
     "dev": "cd campaign-crud && npm run dev",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d campaign-crud"
+    "deploy": "gh-pages -d campaign-crud/dist"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +20,11 @@
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "gh-pages": "^6.3.0",
     "pg": "^8.14.1",
     "sqlite3": "^5.1.7",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

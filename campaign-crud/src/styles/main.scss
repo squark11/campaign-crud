@@ -1,7 +1,6 @@
-@import "./variables";
-@import "./layout";
-@import "./form";
-@import "./table";
-@import "./buttons";
-@import "./campaignList";
-@import "./campaignForm";
+@use "./layout";
+@use "./form";
+@use "./table";
+@use "./buttons";
+@use "./campaignList";
+@use "./campaignForm";
