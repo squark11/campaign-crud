@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://squark11.github.io/campaign-crud/campaign-crud",
+  "homepage": "https://squark11.github.io/campaign-crud/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predeploy": "npm run build",
+    "build": "cd campaign-crud && npm run build",
+    "predeploy": "cd campaign-crud && npm run build",
     "deploy": "gh-pages -d build"
   },
   "keywords": [],
@@ -16,9 +17,11 @@
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "gh-pages": "^6.3.0",
     "pg": "^8.14.1",
     "sqlite3": "^5.1.7",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
