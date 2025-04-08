@@ -9,11 +9,11 @@ app.use(express.json());
 
 // Połączenie z bazą danych PostgreSQL
 const client = new Client({
-  user: 'your-db-username',         // Użyj nazwy użytkownika bazy danych
-  host: 'your-db-host',             // Użyj hosta bazy danych
-  database: 'your-db-name',         // Użyj nazwy bazy danych
-  password: 'your-db-password',     // Użyj hasła bazy danych
-  port: 5432,                       // Domyślny port PostgreSQL
+  user: 'kampania_db_1dgx_user',    
+  host: 'dpg-cvqla81r0fns73a0s880-a',          
+  database: 'kampania_db_1dgx', 
+  password: 'ucKaWFA5EuiP2NDMAq9cgxs5PZxMV0wf',  
+  port: 5432,                      
 });
 
 client.connect(err => {
